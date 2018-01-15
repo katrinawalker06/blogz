@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+<div class="title">
+    <h2>All Posts</h2>
+</div>
+{% endblock %}
+
+
+
+
+{% block content %}
+{% for blog in blogs%}
+    {% if id=blog.id %}
+<div>
+    <h3>{{blog.title}}</h3>
+    <p>{{blog.body}}</p>
+    <p> Written by:<a href="/blog?id={{ user_id }}"> {{ username }}</a></p>
+</div>
+    {% endif %}
+{% endblock %}
+
+
+
+
+<!--{% block content %}
+{% for blog in blogs %}
+    {% if id == blog.id %}
+<div>
+    <h3>{{blog.title}}</h3>
+    <p>{{blog.body}}</p>
+    {% endif %}
+    {% for user in users %}
+    <p> Written by:<a href="/blog?user={{ user.id }}"> {{ user.username }}</a></p>
+
+    {% endfor %}
+{% endfor %}
+
+<hr />
+</div>
+{% endblock %}-->

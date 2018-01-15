@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+    <a href="/newpost"> Add a New post </a>
+    <a href="/blog"> Main Blog page </a>
+    
+    <style>
+        .title {
+            font-size: 16px
+        }
+
+        .blog {
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .error {
+            color: red
+        }
+    </style>
+</head>
+<body>
+    {% block title %}{% endblock %}
+    {% block content %}
+    {% endblock %}
+
+</body>
+</html>

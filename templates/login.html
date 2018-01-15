@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<h1 style="font-size:50px;color:olive;text-align:center">Login</h1>
+
+<form action="login" method="POST" style="font-size:15px;color:black;text-align:center">
+    <table style="" text-align:center">
+        <tr>
+            <td><label for="username">Username</label></td>
+            <td>
+                <input name="username" type="text" value="{{ email }}">
+            </td>
+        </tr>
+        <tr>
+            <td><label for="password">Password</label></td>
+            <td>
+                <input name="password" type="password" value="{{password}}">
+            </td>
+        </tr>
+    </table>
+    <p>Don't have an account? you may <a href="/signup">create one!</a></p>
+    <input type="submit" value="Login">
+</form>
+
+{% with messages = get_flashed_messages(with_categories=True) %}
+<ul>
+    {% for cateogory,messages in messages %}
+    <li class="{{category}}">{{messages}}</li>
+    {% endfor %}
+</ul>
+    {% endwith %}
+{% endblock %}

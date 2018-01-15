@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+
+    <style>
+        .title {
+            font-size: 15px
+        }
+
+        .blog {
+            text-align: left;
+            font-size: 12px;
+        }
+
+        .error {
+            color: red;
+        }
+
+        .index {
+            color: blue;
+        }
+        .header {
+            color: red;
+            text-align: right;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <h1 class="header"><a href="/newpost">Add a New post</a></h1>
+        <h1 class="header"><a href="/"> Main Blog page</a></h1>
+        <h1 class="header"><a href="/login">Login</a></h1>
+        <h1 class="header"><a href="/logout">Logout</a></h1>
+        <h1 class="header"><a href="/posts">Posts</a></h1>
+    </nav>
+
+    {% block title %}{% endblock %}
+    
+    {% block content %}
+    {% endblock %}
+
+</body>
+</html>

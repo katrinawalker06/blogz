@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+
+{% block title %}<h1 style="text-align:center"> Blog Posts!</h1> {% endblock %}
+
+{% block content%}
+
+{% for blog in blogs %}
+<div class="blog">
+    <h3><a href="/blog?id={{blog.id}}">username</a></h3>
+    <h2>{{blog.title}}</h2>
+    <p>{{blog.body}}</p>
+    <p class="usersingle">Written by:<a href="/blog?id={{blog.owner_id}}">{{blog.owner.username}}</a></p>
+</div>
+
+
+{%for user in users %}
+<div class="blog">
+    <h3><a href="/blog?id={{blog.title}}"></h3>
+    <h2>{{blog.title}}</h2>
+    <p>{{blog.body}}</p>
+    <p class="usersingle">Written by:<a href="/blog?id={{blog.owner_id}}">{{blog.owner.username}}</a></p>
+</div>
+<hr />
+{% endfor %}
+{% endfor %}
+
+
+{% endblock %}
+
