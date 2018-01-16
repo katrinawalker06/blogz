@@ -74,8 +74,7 @@ def login():
 def singleUser():
         user_id = request.args.get('id')
         user = User.query.filter_by(id=user_id).first()
-        blogs= Blog.query.filter_by(owner_id=user_id).all()
-        return render_template('/singleUser.html', blogs=blogs, user=user)
+        return render_template('/singleUser.html', user=user)
     
 
 
@@ -85,26 +84,26 @@ def signup():
     
     if request.method=="POST":
         username=request.form['username']
-        username_error=""
+        username_error= ""
         password=request.form['password']
-        password_error=""
+        password_error= ""
         verify_password=request.form['verify_password']
         verify_password_error=""
         currentuser=User.query.filter_by(username=username).first()
               
         if username == "":
             username_error = "Please enter a username."
-        if currentuser:
+        elif currentuser:
             username_error ="username already taken"
-        if password == "":
+        elif password == "":
             password_error = "Please enter a password."
-        if len(username) <= 3 or len(username) >3:
+        elif len(username) <= 3 or len(password) <=3:
             username_error = "Username and Password must have at least 3 characters."
         if password != verify_password:
             verify_password_error = "Passwords do not match"    
            
                                                
-        if len(username) > 3 and len(password) > 3 and password == verify_password and not currentuser:
+        if username_error  !="" and  password_error !="" and verify_password_error !="":
             new_user = User(username, password)
             db.session.add(new_user)
             db.session.commit()
@@ -124,16 +123,13 @@ def logout():
     return redirect("/")
 
 
-@app.route("/blog",methods=['POST', 'GET'])
+@app.route("/blog")
 def blog():
     blog_id= int(request.args.get("id"))
-    user_id= request.args.get("id")
     if blog_id:
-       blog = Blog.query.filter_by(id=blog_id).first()
-       return render_template("blog.html",title=blog.title, body= blog.body,blog=blog,user=body.owner.username, user_id= blog.owner_id)
-    if user_id:
-        users = User.query.all()    
-        return render_template("singleUser.html",users=users)
+       blog = Blog.query.get(blog_id)
+       return render_template("posts.html",blogs=[blog])
+    
     return render_template("main.html")
 
 
@@ -155,7 +151,8 @@ def home():
             return render_template("newpost.html",blogtitle_error=blogtitle_error,newblog_error=newblog_error,blogtitle=blogtitle,newblog=newblog)
         
         if not blogtitle_error and not newblog_error:
-            new_blog = Blog(blogtitle,newblog,owner)
+            newowner= User.query.filter_by(username=session["username"]).first()
+            new_blog = Blog(blogtitle,newblog,newowner)
             db.session.add(new_blog)
             db.session.commit()
             return redirect("/blog?id={0}".format(new_blog.id))
@@ -165,14 +162,8 @@ def home():
 @app.route("/posts", methods=["GET"])
 def posts():
     blogs = Blog.query.all()
-    return render_template("/posts.html", blogs=blogs)
+    return render_template("posts.html", blogs=blogs)
 
-#@app.route("/singleUser", methods=["GET"])
-#def singleUser():
-#        user_id = request.args.get('id')
-#        user = User.query.filter_by(id=user_id).first()
-#        blogs= Blog.query.filter_by(owner_id=user_id).all()
-#        return render_template('blog.html')
     
 
 

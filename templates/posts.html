@@ -3,7 +3,9 @@
 
 {% block title %}
 <div class="title">
+    {% if blogs|length > 1 %}
     <h2>All Posts</h2>
+    {% endif %}
 </div>
 {% endblock %}
 
@@ -11,32 +13,17 @@
 
 
 {% block content %}
-{% for blog in blogs%}
-    {% if id=blog.id %}
+{% for blog in blogs %}
 <div>
-    <h3>{{blog.title}}</h3>
+    <a href="blog?id={{blog.id}}"><h3>{{blog.title}}</h3></a>
     <p>{{blog.body}}</p>
-    <p> Written by:<a href="/blog?id={{ user_id }}"> {{ username }}</a></p>
+
+    <p> Written by:<a href="/singleUser?id={{ blog.owner.id }}">{{blog.owner.username}}</a></p>
 </div>
-    {% endif %}
+    
+{% endfor %}
 {% endblock %}
 
 
 
 
-<!--{% block content %}
-{% for blog in blogs %}
-    {% if id == blog.id %}
-<div>
-    <h3>{{blog.title}}</h3>
-    <p>{{blog.body}}</p>
-    {% endif %}
-    {% for user in users %}
-    <p> Written by:<a href="/blog?user={{ user.id }}"> {{ user.username }}</a></p>
-
-    {% endfor %}
-{% endfor %}
-
-<hr />
-</div>
-{% endblock %}-->
